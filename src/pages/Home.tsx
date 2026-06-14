@@ -34,19 +34,20 @@ export default function Home() {
       {/* API Key warning */}
       {!apiKey && (
         <div className="glass-card p-4 border-amber-dim/30 rounded-xl flex items-start gap-3">
-          <span className="text-2xl mt-0.5">⚠</span>
+          <span className="text-2xl mt-0.5">📖</span>
           <div className="flex-1 min-w-0">
-            <div className="font-medium text-amber-glow text-sm">API Key Required</div>
+            <div className="font-medium text-amber-glow text-sm">Lite mode active</div>
             <div className="text-parchment-muted text-xs mt-0.5">
-              Add your free Anthropic API key in Settings to begin your linguistic transformation.
+              Check-ins work right now using WordWise's built-in etymology engine. Add your free
+              Anthropic API key in Settings for deeper, AI-personalized analysis.
             </div>
           </div>
           <div className="flex flex-col gap-2 shrink-0">
             <Link to="/settings" className="btn-primary text-sm py-2 px-4 text-center">
-              Set Up
+              Add Key
             </Link>
             <button onClick={viewDemo} className="btn-ghost text-sm py-2 px-4">
-              View Sample
+              View AI Sample
             </button>
           </div>
         </div>

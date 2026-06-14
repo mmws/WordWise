@@ -35,6 +35,7 @@ export interface Analysis {
   wisdom: Wisdom
   rootInsight: string
   reframe: string
+  engine?: 'claude' | 'lite'
 }
 
 export interface SavedWord {
