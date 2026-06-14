@@ -1,10 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 import HawkinsMeter from '../components/HawkinsMeter'
 import { getLevelForScore } from '../hawkins'
+import { DEMO_ANALYSIS } from '../data/demoAnalysis'
 
 export default function Home() {
-  const { analyses, savedWords, apiKey } = useApp()
+  const navigate = useNavigate()
+  const { analyses, savedWords, apiKey, setCurrentAnalysis } = useApp()
+
+  function viewDemo() {
+    setCurrentAnalysis(DEMO_ANALYSIS)
+    navigate('/analysis')
+  }
   const lastAnalysis = analyses[0]
 
   const recentLevels = analyses.slice(0, 7).map(a => a.hawkinsLevel)
@@ -31,12 +38,17 @@ export default function Home() {
           <div className="flex-1 min-w-0">
             <div className="font-medium text-amber-glow text-sm">API Key Required</div>
             <div className="text-parchment-muted text-xs mt-0.5">
-              Add your Anthropic API key in Settings to begin your linguistic transformation.
+              Add your free Anthropic API key in Settings to begin your linguistic transformation.
             </div>
           </div>
-          <Link to="/settings" className="btn-primary text-sm shrink-0 py-2 px-4">
-            Set Up
-          </Link>
+          <div className="flex flex-col gap-2 shrink-0">
+            <Link to="/settings" className="btn-primary text-sm py-2 px-4 text-center">
+              Set Up
+            </Link>
+            <button onClick={viewDemo} className="btn-ghost text-sm py-2 px-4">
+              View Sample
+            </button>
+          </div>
         </div>
       )}
 

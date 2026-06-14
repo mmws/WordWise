@@ -39,10 +39,19 @@ export default function Settings() {
       {/* API Key */}
       <div className="glass-card p-6 space-y-5">
         <div>
-          <h2 className="font-medium text-parchment text-base">Anthropic API Key</h2>
+          <h2 className="font-medium text-parchment text-base">Your Anthropic API Key</h2>
           <p className="text-parchment-muted text-sm mt-1">
-            WordWise uses Claude (claude-opus-4-6) for etymology analysis, neologism generation, and wisdom matching.
-            Your key is stored locally and never sent anywhere except Anthropic's API.
+            WordWise runs entirely in your browser and talks directly to Claude using a key only you hold.
+            Nothing is sent to us, there's no account or login — just your key, stored on this device.
+          </p>
+        </div>
+
+        <div className="rounded-xl bg-amber-dim/10 border border-amber-dim/20 p-4 text-xs text-parchment-dim space-y-1.5">
+          <div className="font-medium text-amber-glow">Why do I need my own key?</div>
+          <p>
+            WordWise doesn't have a shared server or backend — each person's browser calls Claude directly
+            with their own key. That means your usage is billed to <em>your</em> Anthropic account, never
+            anyone else's, and no one (including whoever shared this link with you) can see or use your key.
           </p>
         </div>
 
@@ -77,15 +86,27 @@ export default function Settings() {
         </button>
 
         <div className="rounded-xl bg-root-surface border border-root-border p-4 text-xs text-parchment-muted space-y-2">
-          <div className="font-medium text-parchment">How to get your key:</div>
+          <div className="font-medium text-parchment">Get a free key in ~2 minutes:</div>
           <ol className="list-decimal list-inside space-y-1 text-parchment-muted">
-            <li>Go to <span className="text-amber-glow">console.anthropic.com</span></li>
-            <li>Sign up or log in</li>
-            <li>Navigate to API Keys</li>
-            <li>Create a new key and paste it above</li>
+            <li>
+              Go to{' '}
+              <a
+                href="https://console.anthropic.com/settings/keys"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-glow underline"
+              >
+                console.anthropic.com/settings/keys
+              </a>
+            </li>
+            <li>Sign up or log in (Anthropic accounts are free to create)</li>
+            <li>Click "Create Key", give it any name, and copy the value starting with <code className="text-amber-glow">sk-ant-...</code></li>
+            <li>Paste it above and hit Save — it stays on this device only</li>
           </ol>
           <div className="pt-1 text-parchment-muted/70 italic">
-            Note: API calls are charged to your Anthropic account. Each analysis uses ~1–2k tokens (~$0.01–0.03 with claude-opus-4-6).
+            Note: API calls are charged to your Anthropic account, separate from any Claude subscription.
+            Each analysis uses ~1–2k tokens (~$0.01–0.03 with claude-opus-4-6). New accounts often start
+            with a small free credit balance.
           </div>
         </div>
       </div>

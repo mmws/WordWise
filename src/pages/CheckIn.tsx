@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 import { analyzeWithClaude } from '../services/claude'
 import { HAWKINS_LEVELS, getLevelForScore, CALIBRATION_EMOTIONS } from '../hawkins'
+import { DEMO_ANALYSIS } from '../data/demoAnalysis'
 
 const PROMPTS = [
   "What's alive in your world right now?",
@@ -17,6 +18,11 @@ type Step = 'input' | 'calibrate' | 'loading'
 export default function CheckIn() {
   const navigate = useNavigate()
   const { apiKey, aiTone, addAnalysis, setCurrentAnalysis } = useApp()
+
+  function viewDemo() {
+    setCurrentAnalysis(DEMO_ANALYSIS)
+    navigate('/analysis')
+  }
   const [step, setStep] = useState<Step>('input')
   const [text, setText] = useState('')
   const [sliderValue, setSliderValue] = useState(200)
@@ -112,6 +118,23 @@ export default function CheckIn() {
 
       {step === 'input' && (
         <div className="space-y-6 animate-slide-up">
+          {!apiKey && (
+            <div className="glass-card p-4 border-amber-dim/30 rounded-xl flex items-start gap-3">
+              <span className="text-2xl mt-0.5">⚠</span>
+              <div className="flex-1 min-w-0">
+                <div className="font-medium text-amber-glow text-sm">No API key yet</div>
+                <div className="text-parchment-muted text-xs mt-0.5">
+                  You'll need your own free Anthropic key to run a live analysis. Not ready yet?
+                  See what WordWise produces with a sample.
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 shrink-0">
+                <Link to="/settings" className="btn-primary text-sm py-2 px-4 text-center">Add Key</Link>
+                <button onClick={viewDemo} className="btn-ghost text-sm py-2 px-4">View Sample</button>
+              </div>
+            </div>
+          )}
+
           {/* Main text input */}
           <div className="glass-card p-6 space-y-4">
             <h2 className="font-display text-lg text-amber-glow">{PROMPTS[promptIdx]}</h2>
